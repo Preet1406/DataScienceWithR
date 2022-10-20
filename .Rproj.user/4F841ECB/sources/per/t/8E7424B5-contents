@@ -1,0 +1,111 @@
+---
+title: "Data Visualization with ggplot"
+output: html_notebook
+---
+
+loading tidyverse
+```{r}
+library(tidyverse)
+```
+
+Creates an empty graph
+```{r}
+ggplot(data = mpg)
+```
+
+geom_point() adds a layer of points to your plot
+aes() specify variables to map to x and y-axes
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+number of rows and columns
+```{r}
+nrow(mtcars)
+ncol(mtcars)
+```
+
+documentation
+```{r}
+?mpg
+```
+
+a scatterplot of hwy versus cyl
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = cyl, y = hwy))
+```
+
+scatterplot of class versus drv
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = class, y = drv))
+```
+
+Scaling: Assigning unique level of aesthetic to each unique value of the variable.
+
+Aesthetic color
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
+Aesthetic size
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+
+Aethetic aplha (for transparency)
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
+
+Aesthetic shape
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+Manually setting aesthetic properties
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), color = "purple")
+```
+
+Mapping a continuous variable to color and size.
+Continuous variables cannot be mapped to shape
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = year))
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = year))
+```
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = hwy, size = displ))
+```
+
+Mapping multiple aesthetics to same variable
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class, size = class, shape = class))
+```
+
+Stroke aesthetic
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), shape = 21, color = "purple", fill = "yellow", size = 4, stroke = 2)
+```
+
+Conditional operation
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
+```
+

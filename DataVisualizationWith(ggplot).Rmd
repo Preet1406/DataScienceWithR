@@ -1,0 +1,287 @@
+---
+title: "Data Visualization with ggplot"
+output: github_document
+---
+
+loading tidyverse
+```{r}
+library(tidyverse)
+```
+
+Creates an empty graph
+
+```{r}
+ggplot(data = mpg)
+```
+
+geom_point() adds a layer of points to your plot
+aes() specify variables to map to x and y-axes
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+number of rows and columns
+
+```{r}
+nrow(mtcars)
+ncol(mtcars)
+```
+
+documentation
+
+```{r}
+?mpg
+```
+
+a scatterplot of hwy versus cyl
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = cyl, y = hwy))
+```
+
+scatterplot of class versus drv
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = class, y = drv))
+```
+
+Scaling: Assigning unique level of aesthetic to each unique value of the variable.
+
+Aesthetic color
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
+Aesthetic size
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+
+Aesthetic aplha (for transparency)
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
+
+Aesthetic shape
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+Manually setting aesthetic properties
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), color = "purple")
+```
+
+Mapping a continuous variable to color and size.
+Continuous variables cannot be mapped to shape
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = year))
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = year))
+```
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = hwy, size = displ))
+```
+
+Mapping multiple aesthetics to same variable
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class, size = class, shape = class))
+```
+
+Stroke aesthetic
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), shape = 21, color = "purple", fill = "yellow", size = 4, stroke = 2)
+```
+
+Conditional operation
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
+```
+
+Facet_wrap():
+variable passed should be discrete
+
+will only produce plots for the combinations of variables that have values
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ class, nrow = 2)
+```
+
+facet_grid() will produce a grid of plots for each combination of variables that you specify, even if some plots are empty.
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ cyl)
+```
+
+Facet on a continuous variable
+plot contains a facet for each distinct value
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ cty)
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(~ cty)
+```
+drv ~ . facet by values of drv on the y-axis.
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+```
+
+. ~ cyl will facet by values of cyl on the x-axis
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+Geometrical Object
+A geom is the geometrical object that a plot uses to represent data.
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+geom_smooth()
+
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+linetype in geom_smooth()
+
+geom_smooth() separates the cars into three lines based on their drv value
+
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
+```
+
+group aesthetic
+
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
+```
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+```
+
+Add multiple geom functions
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+More efficient way
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class)) +
+  geom_smooth()
+```
+
+filter
+
+se: Computes standard error of the mean.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class)) +
+  geom_smooth(
+    data = filter(mpg, class == 'subcompact'),
+    se = FALSE
+  )
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+Recreating graphs from exercise
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(size = 3) +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(size = 3) +
+  geom_smooth(mapping = aes(group = drv), se = FALSE)
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
+  geom_point(size = 3) +
+  geom_smooth(se = FALSE)
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = drv), size = 3) +
+  geom_smooth(se = FALSE)
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = drv), size = 3) +
+  geom_smooth(mapping = aes(linetype = drv), se = FALSE)
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(size = 3, color = 'white') +
+  geom_point(mapping = aes(color = drv))
+```
+
