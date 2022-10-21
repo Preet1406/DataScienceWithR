@@ -431,3 +431,104 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ```
 
 ![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+
+The algorithm used to calculate new values for a graph is called a stat.
+default value for stat is “count”
+
+geom_bar()
+
+``` r
+ggplot(dat = diamonds) +
+  geom_bar(mapping = aes(x = cut))
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+
+This works because every geom has a default stat, and every stat has a
+default geom.
+
+``` r
+ggplot(dat = diamonds) +
+  stat_count(mapping = aes(x = cut))
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+
+identity
+
+``` r
+demo <- tribble(
+  ~a,      ~b,
+  "A", 20,
+  "B", 35,
+  "C", 15
+)
+
+ggplot(dat = demo) +
+  geom_bar(mapping = aes(x = a, y = b), stat = 'identity')
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+
+Bar chart of proportion
+
+``` r
+ggplot(data = diamonds) +
+  geom_bar(
+    mapping = aes(x = cut, y = ..prop.., group = 1)
+  )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+
+stat_summary()
+
+``` r
+ggplot(data = diamonds) +
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+
+``` r
+?stat_summary
+```
+
+``` r
+ggplot(data = diamonds) +
+  geom_pointrange(
+    mapping = aes(x = cut, y = depth),
+    stat = 'summary',
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-47-1.png)<!-- -->
+
+If group = 1 is not included, all the bars will have the same height.
+
+The function geom_bar() assumes that the groups are equal to the x
+values since the stat computes the counts within the group.
+
+``` r
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, y = ..prop..))
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
+
+``` r
+ggplot(data = diamonds) +
+  geom_bar(
+    mapping = aes(x = cut, fill = color, y = ..count.. / sum(..count..))
+  )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
