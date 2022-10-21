@@ -432,6 +432,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 ![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
+Statistical Transformations
+
 The algorithm used to calculate new values for a graph is called a stat.
 default value for stat is “count”
 

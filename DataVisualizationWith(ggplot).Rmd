@@ -285,6 +285,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = drv))
 ```
 
+Statistical Transformations
+
 The algorithm used to calculate new values for a graph is called a stat.
 default value for stat is “count”
 
