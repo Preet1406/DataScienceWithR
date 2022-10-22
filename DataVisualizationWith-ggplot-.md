@@ -534,3 +534,121 @@ ggplot(data = diamonds) +
 ```
 
 ![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
+
+Position adjustments
+
+``` r
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, color = cut))
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
+
+``` r
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
+
+``` r
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-52-1.png)<!-- -->
+
+``` r
+ggplot(
+ data = diamonds,
+ mapping = aes(x = cut, fill = clarity)
+) +
+ geom_bar(alpha = 1/5, position = "identity")
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-53-1.png)<!-- -->
+
+``` r
+ggplot(
+ data = diamonds,
+ mapping = aes(x = cut, color = clarity)
+) +
+ geom_bar(fill = NA, position = "identity")
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-54-1.png)<!-- -->
+
+``` r
+ggplot(data = diamonds) +
+ geom_bar(
+ mapping = aes(x = cut, fill = clarity),
+ position = "fill"
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-55-1.png)<!-- -->
+
+``` r
+ggplot(data = diamonds) +
+ geom_bar(
+ mapping = aes(x = cut, fill = clarity),
+ position = "dodge"
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
+
+``` r
+ggplot(data = mpg) +
+ geom_point(
+ mapping = aes(x = displ, y = hwy),
+ position = "jitter"
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
+
+``` r
+ggplot(data = mpg) +
+ geom_point(
+ mapping = aes(x = cty, y = hwy),
+ position = "jitter"
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-58-1.png)<!-- -->
+
+``` r
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_count()
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-59-1.png)<!-- -->
+
+``` r
+ggplot(data = mpg) +
+ geom_boxplot(
+ mapping = aes(x = class, y = hwy)
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-60-1.png)<!-- -->
+
+``` r
+ggplot(data = mpg) +
+ geom_boxplot(
+ mapping = aes(x = drv, y = hwy, color = class)
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-61-1.png)<!-- -->
+
+``` r
+ggplot(data = mpg) +
+ geom_boxplot(
+ mapping = aes(x = drv, y = hwy, color = class),
+ position = "identity"
+ )
+```
+
+![](DataVisualizationWith-ggplot-_files/figure-gfm/unnamed-chunk-62-1.png)<!-- -->
